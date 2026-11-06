@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f6f5f0">
+    <meta name="description" content="Student portal preview for the DDUGU Smart Campus pilot. All records shown are fictional demo data.">
+    <title>Student Portal Demo | DDUGU Smart Campus</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="student-portal.css">
+    <script src="api-client.js" defer></script>
+    <script src="student-portal.js" defer></script>
+  </head>
+  <body class="student-portal-page auth-checking">
+    <a class="skip-link" href="#student-main">Skip to content</a>
+    <div class="portal-auth-loading" id="portal-auth-loading" role="status">Verifying your student session…</div>
+    <header class="student-header">
+      <a class="student-brand" href="index.html" aria-label="DDUGU Smart Campus home">
+        <span class="brand-mark" aria-hidden="true">DDU</span>
+        <span class="brand-copy"><strong>DDUGU</strong><small>Smart Campus</small></span>
+      </a>
+      <div class="student-header-actions">
+        <span class="demo-chip" id="student-mode-chip"><span aria-hidden="true"></span> DEMO DATA</span>
+        <button class="header-notifications" type="button" data-open-notifications aria-label="Open notifications, 2 unread">
+          <span aria-hidden="true">♧</span><b>2</b>
+        </button>
+        <button class="student-menu-toggle" type="button" aria-label="Open student navigation" aria-expanded="false" aria-controls="student-sidebar"><span></span><span></span></button>
+      </div>
+    </header>
+
+    <div class="student-shell">
+      <aside class="student-sidebar" id="student-sidebar" aria-label="Student navigation">
+        <div class="sidebar-identity">
+          <div class="student-avatar" aria-hidden="true" id="student-avatar">DS</div>
+          <div><strong id="student-sidebar-name">Demo Student</strong><small id="student-sidebar-group">CSE · Year 2 · Section A</small></div>
+        </div>
+        <p class="sidebar-label">STUDENT SPACE</p>
+        <nav class="student-nav" aria-label="Student portal">
+          <button type="button" class="student-nav-item is-active" data-view="overview" aria-current="page"><span aria-hidden="true">⌂</span>Overview</button>
+          <button type="button" class="student-nav-item" data-view="timetable"><span aria-hidden="true">▦</span>My timetable</button>
+          <button type="button" class="student-nav-item" data-view="examinations"><span aria-hidden="true">▤</span>Examinations</button>
+          <button type="button" class="student-nav-item" data-view="announcements"><span aria-hidden="true">◉</span>Announcements</button>
+          <button type="button" class="student-nav-item" data-view="campus-map"><span aria-hidden="true">⌖</span>Campus map</button>
+          <button type="button" class="student-nav-item" data-view="notifications"><span aria-hidden="true">♧</span>Notifications <i>2</i></button>
+          <button type="button" class="student-nav-item" data-view="report-issue"><span aria-hidden="true">↗</span>Report an issue</button>
+          <button type="button" class="student-nav-item" data-view="profile"><span aria-hidden="true">○</span>Profile</button>
+        </nav>
+        <a class="exit-demo" href="index.html" data-student-logout><span aria-hidden="true">←</span> Exit demo</a>
+        <p class="sidebar-footnote">Student access is read-only.<br>This preview creates no session.</p>
+      </aside>
+
+      <main class="student-main" id="student-main">
+        <div class="student-page-topline">
+          <div>
+            <p class="eyebrow">DDUGU · STUDENT SPACE</p>
+            <p class="student-group-label">CSE / Year 2 / Batch 2024 / Section A</p>
+          </div>
+          <span class="demo-stamp">TEST PROFILE</span>
+        </div>
+        <div class="student-demo-notice" id="student-data-notice" role="status"><strong>Demo environment.</strong> Names, schedules, exams, notices, and reports on this page are fictional test content, not official university information.</div>
+
+        <section class="student-view" id="view-overview" data-title="Overview" aria-labelledby="page-title">
+          <div class="student-title-row"><div><p class="eyebrow" id="student-current-date">THURSDAY · 5 NOVEMBER 2026</p><h1 id="page-title">Your day, in sync.</h1></div><button class="quiet-action" type="button" data-go-view="timetable">Open timetable <span aria-hidden="true">↗</span></button></div>
+          <div class="student-stat-strip" role="group" aria-label="Academic summary">
+            <div><span class="stat-label">TODAY'S CLASSES</span><strong id="today-class-count">—</strong><small>for your section</small></div>
+            <div><span class="stat-label">NEXT EXAM</span><strong class="stat-text" id="next-exam-date">—</strong><small id="next-exam-name">Loading demo schedule</small></div>
+            <div><span class="stat-label">NEW UPDATES</span><strong id="new-notice-count">—</strong><small>relevant to your group</small></div>
+          </div>
+          <div class="student-content-grid">
+            <section class="content-section today-section" aria-labelledby="today-title">
+              <div class="content-section-heading"><div><p class="eyebrow">YOUR SCHEDULE</p><h2 id="today-title">Today</h2></div><span class="section-meta">CSE · SECTION A</span></div>
+              <div class="timeline-list" id="today-schedule" aria-live="polite" aria-busy="true"><p class="loading-line">Loading schedule…</p></div>
+            </section>
+            <section class="exam-highlight" id="exam-highlight" aria-labelledby="exam-highlight-title">
+              <p class="eyebrow">UP NEXT · DEMO EXAM</p><span class="exam-date-block"><strong>10</strong><small>NOV</small></span>
+              <h2 id="exam-highlight-title">NSS Minor Examination</h2>
+              <p id="exam-highlight-copy">Venue updated in this test schedule. Check the latest exam details before heading to campus.</p>
+              <div class="exam-venue-line"><span>VENUE</span><strong id="exam-highlight-venue">LH03 · Deeksha Bhawan</strong></div>
+              <button class="exam-view-link" type="button" data-go-view="examinations">View exam details <span aria-hidden="true">↗</span></button>
+            </section>
+          </div>
+          <section class="content-section overview-notices" aria-labelledby="overview-notices-title">
+            <div class="content-section-heading"><div><p class="eyebrow">FOR YOUR GROUP</p><h2 id="overview-notices-title">Latest announcements</h2></div><button class="text-action" type="button" data-go-view="announcements">All notices <span aria-hidden="true">↗</span></button></div>
+            <div class="student-notice-list" id="overview-notices" aria-live="polite" aria-busy="true"><p class="loading-line">Loading relevant updates…</p></div>
+          </section>
+        </section>
+
+        <section class="student-view" id="view-timetable" data-title="My timetable" aria-labelledby="timetable-title" hidden>
+          <div class="student-title-row"><div><p class="eyebrow">CSE · YEAR 2 · SECTION A</p><h1 id="timetable-title">My timetable</h1></div><span class="demo-stamp">DEMO SCHEDULE</span></div>
+          <div class="weekday-tabs" role="group" aria-label="Select weekday" id="weekday-tabs"></div>
+          <div class="table-meta"><span id="timetable-day-label">Thursday · 5 November 2026</span><span>Times shown in campus local time</span></div>
+          <div class="timetable-wrap"><table class="timetable-table"><thead><tr><th scope="col">TIME</th><th scope="col">CLASS</th><th scope="col">FACULTY</th><th scope="col">LOCATION</th></tr></thead><tbody id="timetable-rows"></tbody></table></div>
+          <p class="data-note">Demo timetable only. Confirm all schedules through official university channels.</p>
+        </section>
+
+        <section class="student-view" id="view-examinations" data-title="Examinations" aria-labelledby="exams-title" hidden>
+          <div class="student-title-row"><div><p class="eyebrow">CSE · YEAR 2 · SECTION A</p><h1 id="exams-title">Examinations</h1></div><span class="demo-stamp">TEST DATA</span></div>
+          <p class="view-intro">Exam venues and changes for your academic group. The latest demo update is shown first.</p>
+          <div class="exam-list" id="exam-list" aria-live="polite" aria-busy="true"><p class="loading-line">Loading exam schedule…</p></div>
+        </section>
+
+        <section class="student-view" id="view-announcements" data-title="Announcements" aria-labelledby="announcements-title" hidden>
+          <div class="student-title-row"><div><p class="eyebrow">OFFICIAL UPDATES · GROUP FILTERED</p><h1 id="announcements-title">Announcements</h1></div><span class="demo-stamp">DEMO CONTENT</span></div>
+          <p class="view-intro">Only notices relevant to the demo student's branch, year, batch, and section appear here.</p>
+          <div class="student-notice-list full-notice-list" id="announcement-list" aria-live="polite" aria-busy="true"><p class="loading-line">Loading notices…</p></div>
+        </section>
+
+        <section class="student-view" id="view-campus-map" data-title="Campus map" aria-labelledby="map-page-title" hidden>
+          <div class="student-title-row"><div><p class="eyebrow">LOCATION FINDER · READ ONLY</p><h1 id="map-page-title">Campus map</h1></div><span class="demo-stamp">SCHEMATIC DEMO</span></div>
+          <p class="view-intro">Choose a building, floor, then a labeled space to see its location details. This is a reconstructed schematic, not an official blueprint or live room-status service.</p>
+          <div class="map-controls">
+            <div class="building-tabs" id="building-tabs" role="group" aria-label="Select building"></div>
+            <div class="floor-tabs" id="floor-tabs" role="group" aria-label="Select floor"></div>
+          </div>
+          <div class="map-workspace">
+            <div class="map-stage">
+              <div class="blueprint-title"><span id="map-building-title">IET</span><span id="map-floor-title">GROUND FLOOR</span><span class="not-scale">SCHEMATIC · NOT TO SCALE</span></div>
+              <div class="blueprint-board" id="blueprint-board" role="group" aria-label="Interactive schematic floor plan" aria-live="polite"></div>
+              <p class="blueprint-footnote" id="blueprint-footnote"></p>
+            </div>
+            <aside class="room-inspector" aria-live="polite" aria-labelledby="room-inspector-title">
+              <p class="eyebrow">LOCATION DETAILS</p><h2 id="room-inspector-title">Select a space</h2>
+              <p class="inspector-location" id="room-inspector-location">Choose a labeled space on the plan.</p>
+              <dl class="room-facts"><div><dt>TYPE</dt><dd id="room-inspector-type">—</dd></div><div><dt>CAPACITY</dt><dd id="room-inspector-capacity">Not configured</dd></div><div><dt>PERMITTED USE</dt><dd id="room-inspector-use">Not configured</dd></div></dl>
+              <p class="inspector-note">Availability is not shown in this student demo. Use official campus information for navigation.</p>
+            </aside>
+          </div>
+          <p class="data-note">Room placements are based on labels visible in the supplied problem-statement blueprint. Confirm the full-resolution official plans and room register before deployment.</p>
+        </section>
+
+        <section class="student-view" id="view-notifications" data-title="Notifications" aria-labelledby="notifications-title" hidden>
+          <div class="student-title-row"><div><p class="eyebrow">SCHEDULE &amp; EXAM UPDATES</p><h1 id="notifications-title">Notifications</h1></div><button class="text-action" type="button" id="mark-all-read">Mark all read</button></div>
+          <div class="notification-list" id="notification-list" aria-live="polite" aria-busy="true"><p class="loading-line">Loading notifications…</p></div>
+          <p class="data-note">Read status in this demo is temporary and is not saved to an account.</p>
+        </section>
+
+        <section class="student-view" id="view-report-issue" data-title="Report an issue" aria-labelledby="issue-title" hidden>
+          <div class="student-title-row"><div><p class="eyebrow">HELP KEEP INFORMATION ACCURATE</p><h1 id="issue-title">Report an issue</h1></div><span class="demo-stamp">DEMO FORM</span></div>
+          <p class="view-intro">Found an incorrect room, outdated exam detail, or missing update? Describe it here. This preview will not send or store your report.</p>
+          <form class="issue-form" id="issue-form">
+            <label>What needs attention?<select name="category" required><option value="">Choose a category</option><option>Incorrect classroom information</option><option>Outdated examination schedule</option><option>Missing announcement</option><option>Other campus information</option></select></label>
+            <label>Where did you see it?<input name="location" type="text" maxlength="100" placeholder="Page, notice, or room (optional)"></label>
+            <label>Describe the issue<textarea name="description" rows="5" minlength="10" maxlength="1000" required placeholder="Share what seems incorrect or outdated…"></textarea><small>10–1000 characters. Do not include personal or sensitive information.</small></label>
+            <div class="form-actions"><button class="submit-report" type="submit">Preview report <span aria-hidden="true">↗</span></button><span id="issue-status" class="form-status" role="status" aria-live="polite"></span></div>
+          </form>
+        </section>
+
+        <section class="student-view" id="view-profile" data-title="Profile" aria-labelledby="profile-title" hidden>
+          <div class="student-title-row"><div><p class="eyebrow">YOUR ACADEMIC DETAILS</p><h1 id="profile-title">Profile</h1></div><span class="demo-stamp">FICTIONAL PROFILE</span></div>
+          <div class="profile-layout"><div class="profile-summary"><div class="profile-avatar" id="profile-avatar" aria-hidden="true">DS</div><h2 id="profile-name">Demo Student</h2><p>Student · DDUGU Smart Campus</p><span class="demo-badge profile-demo-badge">Demo content</span></div><dl class="profile-details"><div><dt>BRANCH</dt><dd id="profile-branch">Computer Science and Engineering (CSE)</dd></div><div><dt>ACADEMIC YEAR</dt><dd id="profile-year">Year 2</dd></div><div><dt>BATCH</dt><dd id="profile-batch">2024</dd></div><div><dt>SECTION</dt><dd id="profile-section">A</dd></div><div><dt>STUDENT ID</dt><dd id="profile-student-id">Not included in demo</dd></div><div><dt>CONTACT</dt><dd>Not included in demo</dd></div></dl></div>
+          <p class="data-note">No real student names, IDs, or contact information are used on this page.</p>
+        </section>
+        <footer class="student-footer"><span>Independent developer prototype · Not an official DDUGU service</span><a href="index.html">Return to public site ↑</a></footer>
+      </main>
+    </div>
+  </body>
+</html>

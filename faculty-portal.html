@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f6f5f0">
+    <meta name="description" content="Faculty portal demo for DDUGU Smart Campus. Room search and bookings use clearly labeled fictional test data.">
+    <title>Faculty Portal Demo | DDUGU Smart Campus</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="faculty-portal.css">
+    <script src="api-client.js" defer></script>
+    <script src="booking-rules.js" defer></script>
+    <script src="faculty-portal.js" defer></script>
+  </head>
+  <body class="faculty-portal-page auth-checking">
+    <a class="skip-link" href="#faculty-main">Skip to content</a>
+    <div class="portal-auth-loading" id="faculty-auth-loading" role="status">Verifying your faculty session…</div>
+    <header class="faculty-header">
+      <a class="faculty-brand" href="index.html" aria-label="DDUGU Smart Campus home"><span class="brand-mark" aria-hidden="true">DDU</span><span class="brand-copy"><strong>DDUGU</strong><small>Smart Campus</small></span></a>
+      <div class="faculty-header-actions"><span class="faculty-demo-chip" id="faculty-mode-chip"><span aria-hidden="true"></span> DEMO DATA</span><button class="faculty-notification-button" type="button" data-open-view="notifications" aria-label="Open notifications, 2 unread">♧<b>2</b></button><button class="faculty-menu-toggle" type="button" aria-label="Open faculty navigation" aria-expanded="false" aria-controls="faculty-sidebar"><span></span><span></span></button></div>
+    </header>
+
+    <div class="faculty-shell">
+      <aside class="faculty-sidebar" id="faculty-sidebar" aria-label="Faculty navigation">
+        <div class="faculty-identity"><div class="faculty-avatar" id="faculty-avatar" aria-hidden="true">DF</div><div><strong id="faculty-sidebar-name">Demo Faculty</strong><small id="faculty-sidebar-department">Computer Science · IET</small></div></div>
+        <p class="faculty-sidebar-label">FACULTY SPACE</p>
+        <nav class="faculty-nav" aria-label="Faculty portal">
+          <button type="button" class="faculty-nav-item is-active" data-view="overview" aria-current="page"><span aria-hidden="true">⌂</span>Overview</button>
+          <button type="button" class="faculty-nav-item" data-view="find-room"><span aria-hidden="true">⌕</span>Find a room</button>
+          <button type="button" class="faculty-nav-item" data-view="campus-explorer"><span aria-hidden="true">⌖</span>Campus explorer</button>
+          <button type="button" class="faculty-nav-item" data-view="assistant"><span aria-hidden="true">✳</span>Smart assistant</button>
+          <button type="button" class="faculty-nav-item" data-view="my-bookings"><span aria-hidden="true">▤</span>My bookings</button>
+          <button type="button" class="faculty-nav-item" data-view="schedule"><span aria-hidden="true">▦</span>Schedule</button>
+          <button type="button" class="faculty-nav-item" data-view="notifications"><span aria-hidden="true">♧</span>Notifications<i>2</i></button>
+          <button type="button" class="faculty-nav-item" data-view="report-issue"><span aria-hidden="true">↗</span>Report an issue</button>
+          <button type="button" class="faculty-nav-item" data-view="profile"><span aria-hidden="true">○</span>Profile</button>
+        </nav>
+        <a class="faculty-exit" href="index.html" data-faculty-logout><span aria-hidden="true">←</span> Exit demo</a>
+        <p class="faculty-sidebar-note">Faculty demo only.<br>No authenticated session.</p>
+      </aside>
+
+      <main class="faculty-main" id="faculty-main">
+        <div class="faculty-context"><div><p class="eyebrow">DDUGU · FACULTY SPACE</p><p id="faculty-context-department">Institute of Engineering and Technology</p></div><span class="faculty-test-tag" id="faculty-profile-tag">TEST PROFILE</span></div>
+        <div class="faculty-demo-notice" id="faculty-demo-notice" role="status"><strong>Demo environment.</strong> Room records, availability, bookings, schedules, and notifications are fictional test data. Booking checks run locally in this browser only.</div>
+
+        <section class="faculty-view" id="faculty-view-overview" data-title="Overview" aria-labelledby="faculty-page-title">
+          <div class="faculty-title-row"><div><p class="eyebrow">THURSDAY · 5 NOVEMBER 2026</p><h1 id="faculty-page-title">Today at a glance.</h1></div><button class="faculty-primary-button" type="button" data-open-view="find-room">Find a room <span aria-hidden="true">↗</span></button></div>
+          <div class="faculty-stats" role="group" aria-label="Faculty summary"><div><span>UPCOMING CLASSES</span><strong id="faculty-class-count">—</strong><small>on your demo schedule</small></div><div><span>MY BOOKINGS</span><strong id="faculty-booking-count">—</strong><small>active test bookings</small></div><div><span>UNREAD UPDATES</span><strong id="faculty-unread-count">—</strong><small>booking and campus notices</small></div></div>
+          <div class="faculty-overview-grid">
+            <section class="faculty-panel" aria-labelledby="faculty-today-title"><div class="faculty-panel-heading"><div><p class="eyebrow">YOUR TEACHING SCHEDULE</p><h2 id="faculty-today-title">Today's classes</h2></div><button class="faculty-text-button" type="button" data-open-view="schedule">Full schedule <span aria-hidden="true">↗</span></button></div><div class="faculty-timeline" id="faculty-today-schedule" aria-live="polite" aria-busy="true"><p class="faculty-loading">Loading demo schedule…</p></div></section>
+            <section class="faculty-next-booking" aria-labelledby="next-booking-title"><p class="eyebrow">NEXT UP · DEMO BOOKING</p><span class="faculty-date-tile"><strong id="next-booking-day">05</strong><small id="next-booking-month">NOV</small></span><h2 id="next-booking-title">Extra lecture · CSE</h2><p id="next-booking-time">13:00–14:00 · IET20</p><span id="next-booking-state" class="faculty-state-label">CONFIRMED · TEST DATA</span><button class="faculty-text-button" type="button" data-open-view="my-bookings">Manage my bookings <span aria-hidden="true">↗</span></button></section>
+          </div>
+          <section class="faculty-panel recent-bookings-panel" aria-labelledby="recent-bookings-title"><div class="faculty-panel-heading"><div><p class="eyebrow">YOUR ROOM RESERVATIONS</p><h2 id="recent-bookings-title">Recent bookings</h2></div><button class="faculty-text-button" type="button" data-open-view="my-bookings">View all <span aria-hidden="true">↗</span></button></div><div id="overview-bookings" class="faculty-booking-list" aria-live="polite" aria-busy="true"><p class="faculty-loading">Loading bookings…</p></div></section>
+        </section>
+
+        <section class="faculty-view" id="faculty-view-find-room" data-title="Find a room" aria-labelledby="find-room-title" hidden>
+          <div class="faculty-title-row"><div><p class="eyebrow">ROOM AVAILABILITY · TEST DATA</p><h1 id="find-room-title">Find a room.</h1></div><span class="faculty-test-tag">DEMO RECORDS</span></div>
+          <form class="room-search-form" id="room-search-form">
+            <label>Building<select id="search-building" name="building"><option value="all">IET + Deeksha Bhawan</option><option value="IET">IET</option><option value="Deeksha Bhawan">Deeksha Bhawan</option></select></label>
+            <label>Floor<select id="search-floor" name="floor"><option value="all">Any floor</option><option value="Ground">Ground</option><option value="First">First</option><option value="Second">Second</option></select></label>
+            <label>Date<input id="search-date" name="date" type="date" required></label>
+            <label>Start time<input id="search-start" name="start" type="time" required value="11:00"></label>
+            <label>End time<input id="search-end" name="end" type="time" required value="12:00"></label>
+            <label>Capacity<input id="search-capacity" name="capacity" type="number" min="1" max="1000" required value="65"></label>
+            <label>Room type<select id="search-type" name="type"><option value="all">Any type</option><option value="Classroom">Classroom</option><option value="Laboratory">Laboratory</option><option value="Seminar Hall">Seminar hall</option><option value="Library">Library</option></select></label>
+            <label>Purpose<select id="search-purpose" name="purpose"><option value="lecture">Extra lecture</option><option value="examination">Examination</option><option value="practical">Practical session</option><option value="event">Event</option></select></label>
+            <div class="search-form-actions"><button class="faculty-primary-button" type="submit">Search availability <span aria-hidden="true">⌕</span></button><span id="search-form-status" class="inline-status" role="status" aria-live="polite"></span></div>
+          </form>
+          <div class="room-results-heading"><div><p class="eyebrow">MATCHES</p><h2>Rooms for your request</h2></div><span class="result-key"><i class="status-dot available-dot"></i>Available <i class="status-dot occupied-dot"></i>Occupied <i class="status-dot restricted-dot"></i>Restricted</span></div>
+          <div id="room-results" class="room-results" aria-live="polite" aria-busy="true"><p class="faculty-loading">Checking demo booking records…</p></div>
+        </section>
+
+        <section class="faculty-view" id="faculty-view-campus-explorer" data-title="Campus explorer" aria-labelledby="explorer-title" hidden>
+          <div class="faculty-title-row"><div><p class="eyebrow">SELECT A SPACE · CHECK THE REQUESTED SLOT</p><h1 id="explorer-title">Campus explorer.</h1></div><span class="faculty-test-tag">SCHEMATIC DEMO</span></div>
+          <p class="faculty-intro">Choose a building, floor, and room. Select a date and time to view its demo status, then start a booking from the room details.</p>
+          <div class="explorer-toolbar"><div id="explorer-buildings" class="explorer-tabs" role="group" aria-label="Select building"></div><div id="explorer-floors" class="explorer-tabs" role="group" aria-label="Select floor"></div></div>
+          <div class="explorer-grid"><section class="floorplan-panel" aria-labelledby="floorplan-heading"><div class="floorplan-heading"><h2 id="floorplan-heading">IET · Ground floor</h2><span>SCHEMATIC · NOT TO SCALE</span></div><div class="faculty-floorplan" id="faculty-floorplan" role="group" aria-label="Interactive demo floor plan"></div><p class="floorplan-note" id="floorplan-note"></p></section><aside class="room-detail-panel" aria-live="polite" aria-labelledby="selected-room-title"><p class="eyebrow">ROOM DETAILS</p><h2 id="selected-room-title">Select a room</h2><p id="selected-room-meta" class="selected-room-meta">Choose a room on the schematic.</p><div id="selected-room-status" class="selected-room-status">No room selected</div><dl class="room-detail-facts"><div><dt>CAPACITY</dt><dd id="selected-room-capacity">—</dd></div><div><dt>PERMITTED USE</dt><dd id="selected-room-use">—</dd></div><div><dt>REQUEST SLOT</dt><dd id="selected-room-slot">—</dd></div></dl><button id="book-selected-room" class="faculty-primary-button" type="button" disabled>Start booking <span aria-hidden="true">↗</span></button></aside></div>
+          <p class="faculty-data-note">Map positions are approximate reconstructions from the supplied image. Validate against approved full-resolution plans before operational use.</p>
+        </section>
+
+        <section class="faculty-view" id="faculty-view-assistant" data-title="Smart assistant" aria-labelledby="assistant-title" hidden>
+          <div class="faculty-title-row"><div><p class="eyebrow">NATURAL-LANGUAGE SEARCH · DEMO</p><h1 id="assistant-title">Tell us what you need.</h1></div><span class="faculty-test-tag">LOCAL SCHEDULER</span></div>
+          <p class="faculty-intro">Describe the room, capacity, date, time, and purpose. The demo parser fills the search filters; the scheduling rules then validate rooms against local test records.</p>
+          <form class="assistant-form" id="assistant-form"><label for="assistant-query">Your request</label><textarea id="assistant-query" rows="3" placeholder="I need a classroom for 65 students tomorrow from 11 AM to 12 PM for an extra lecture."></textarea><div class="assistant-actions"><button class="faculty-primary-button" type="submit">Find verified options <span aria-hidden="true">✳</span></button><button class="faculty-text-button" type="button" data-example-query="Find a lab for 35 students today from 2 PM to 4 PM for a practical session.">Try a lab example ↗</button></div><p id="assistant-status" class="assistant-status" role="status" aria-live="polite"></p></form>
+          <div class="assistant-results-heading"><div><p class="eyebrow">RECOMMENDATIONS</p><h2>Ranked from matching demo records</h2></div><span class="validation-label">Availability rechecked against local bookings</span></div>
+          <div id="assistant-results" class="assistant-results"><p class="empty-state">Describe a request to see verified demo matches.</p></div>
+          <section class="alternative-slots"><div><p class="eyebrow">WHEN THE REQUESTED SLOT IS BUSY</p><h2>Alternative time slots</h2></div><div id="alternative-slot-results"><p class="empty-state">Alternative slots appear when a requested room is occupied.</p></div></section>
+          <p class="faculty-data-note">No external AI model is connected. The local parser and deterministic rules never claim live availability; a production booking must be revalidated and committed atomically by the backend.</p>
+        </section>
+
+        <section class="faculty-view" id="faculty-view-my-bookings" data-title="My bookings" aria-labelledby="my-bookings-title" hidden>
+          <div class="faculty-title-row"><div><p class="eyebrow">YOUR RESERVATIONS ONLY</p><h1 id="my-bookings-title">My bookings.</h1></div><button class="faculty-primary-button" type="button" data-open-view="find-room">New booking <span aria-hidden="true">↗</span></button></div>
+          <div class="booking-filter-tabs" role="group" aria-label="Filter bookings"><button type="button" data-booking-filter="all" aria-pressed="true">All</button><button type="button" data-booking-filter="active" aria-pressed="false">Upcoming</button><button type="button" data-booking-filter="cancelled" aria-pressed="false">Cancelled</button></div>
+          <div class="my-bookings-list" id="my-bookings-list" aria-live="polite" aria-busy="true"><p class="faculty-loading">Loading your demo bookings…</p></div>
+          <section class="audit-history"><div><p class="eyebrow">ACCOUNTABILITY</p><h2>Recent changes</h2></div><ol id="booking-audit-list"></ol><p class="faculty-data-note">Audit entries are in-memory demo records and disappear when this page is refreshed.</p></section>
+        </section>
+
+        <section class="faculty-view" id="faculty-view-schedule" data-title="Schedule" aria-labelledby="faculty-schedule-title" hidden>
+          <div class="faculty-title-row"><div><p class="eyebrow">PERSONAL TEACHING SCHEDULE</p><h1 id="faculty-schedule-title">Your schedule.</h1></div><span class="faculty-test-tag">DEMO WEEK · 2–6 NOV</span></div>
+          <div class="faculty-schedule-warning" id="schedule-warning" role="status" hidden></div>
+          <div class="faculty-week-tabs" id="faculty-week-tabs" role="group" aria-label="Choose weekday"></div>
+          <div class="faculty-schedule-list" id="faculty-schedule-list"></div>
+          <div class="schedule-legend"><span><i class="schedule-class-dot"></i>Teaching</span><span><i class="schedule-booking-dot"></i>Room booking</span><span><i class="schedule-conflict-dot"></i>Conflict warning</span></div>
+        </section>
+
+        <section class="faculty-view" id="faculty-view-notifications" data-title="Notifications" aria-labelledby="faculty-notifications-title" hidden>
+          <div class="faculty-title-row"><div><p class="eyebrow">BOOKING &amp; ACADEMIC UPDATES</p><h1 id="faculty-notifications-title">Notifications.</h1></div><button id="faculty-mark-all-read" class="faculty-text-button" type="button">Mark all read</button></div>
+          <div id="faculty-notification-list" class="faculty-notification-list" aria-live="polite"></div>
+          <p class="faculty-data-note">Read state is temporary and stored only in this page session.</p>
+        </section>
+        <section class="faculty-view" id="faculty-view-report-issue" data-title="Report an issue" aria-labelledby="faculty-issue-title" hidden>
+          <div class="faculty-title-row"><div><p class="eyebrow">HELP KEEP CAMPUS INFORMATION ACCURATE</p><h1 id="faculty-issue-title">Report an issue.</h1></div><span class="faculty-test-tag">DEMO FORM</span></div>
+          <p class="faculty-intro">Report incorrect room details, schedule information, or a problem with the portal. This preview will not send or store your report.</p>
+          <form id="faculty-issue-form" class="faculty-feedback-form"><label>Issue type<select name="category" required><option value="">Choose a category</option><option>Incorrect room information</option><option>Schedule or exam update</option><option>Portal problem</option><option>Other</option></select></label><label>Related room or page<input name="location" type="text" maxlength="100" placeholder="Optional"></label><label>What happened?<textarea name="description" rows="5" minlength="10" maxlength="1000" required placeholder="Describe the issue. Do not include sensitive information."></textarea><small>10–1000 characters. No personal data needed.</small></label><div class="search-form-actions"><button class="faculty-primary-button" type="submit">Preview report <span aria-hidden="true">↗</span></button><span id="faculty-issue-status" class="inline-status" role="status" aria-live="polite"></span></div></form>
+        </section>
+        <section class="faculty-view" id="faculty-view-profile" data-title="Profile" aria-labelledby="faculty-profile-title" hidden>
+          <div class="faculty-title-row"><div><p class="eyebrow">YOUR FACULTY DETAILS</p><h1 id="faculty-profile-title">Profile.</h1></div><span class="faculty-test-tag">FICTIONAL PROFILE</span></div>
+          <div class="faculty-profile-layout"><div class="faculty-profile-summary"><div class="faculty-profile-avatar" aria-hidden="true">DF</div><h2>Demo Faculty</h2><p>Faculty · DDUGU Smart Campus</p><span class="faculty-test-tag">DEMO DATA</span></div><dl class="faculty-profile-details"><div><dt>ROLE</dt><dd>Faculty (demo)</dd></div><div><dt>DEPARTMENT</dt><dd>Computer Science and Engineering</dd></div><div><dt>CAMPUS</dt><dd>Institute of Engineering and Technology</dd></div><div><dt>ACCOUNT</dt><dd>No real account or session</dd></div><div><dt>CONTACT</dt><dd>Not included in demo</dd></div></dl></div>
+          <p class="faculty-data-note">No real faculty identity or contact information is used on this page.</p>
+        </section>
+        <footer class="faculty-footer"><span>Independent developer prototype · Not an official DDUGU service</span><a href="index.html">Return to public site ↑</a></footer>
+      </main>
+    </div>
+
+    <dialog class="booking-dialog" id="booking-dialog" aria-labelledby="booking-dialog-title">
+      <button class="booking-dialog-close" type="button" aria-label="Close booking form">×</button>
+      <p class="eyebrow" id="booking-dialog-eyebrow">DEMO BOOKING</p><h2 id="booking-dialog-title">Book a room</h2>
+      <div id="booking-dialog-room" class="booking-dialog-room"></div>
+      <form id="booking-form" class="booking-form"><label>Booking title<input id="booking-title" name="title" type="text" minlength="3" maxlength="100" required placeholder="e.g. CSE extra lecture"></label><label>Purpose<select id="booking-purpose" name="purpose" required><option value="lecture">Extra lecture</option><option value="examination">Examination</option><option value="practical">Practical session</option><option value="event">Event</option></select></label><div class="booking-time-fields"><label>Date<input id="booking-date" name="date" type="date" required></label><label>Start<input id="booking-start" name="start" type="time" required></label><label>End<input id="booking-end" name="end" type="time" required></label></div><label>Notes<textarea id="booking-notes" name="notes" rows="3" maxlength="300" placeholder="Optional demo note"></textarea></label><p class="booking-validation" id="booking-validation" role="status" aria-live="polite"></p><button class="faculty-primary-button" type="submit" id="booking-submit">Validate &amp; confirm demo booking <span aria-hidden="true">↗</span></button></form>
+      <p class="faculty-data-note">The slot is checked again on submit. This local demo cannot prevent concurrent bookings across users.</p>
+    </dialog>
+  </body>
+</html>

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#f3f4ef">
+    <meta name="description" content="Admin portal demo for DDUGU Smart Campus. All operational records shown are fictional test data.">
+    <title>Admin Portal Demo | DDUGU Smart Campus</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="admin-portal.css">
+    <script src="api-client.js" defer></script>
+    <script src="booking-rules.js" defer></script>
+    <script src="admin-portal.js" defer></script>
+  </head>
+  <body class="admin-page auth-checking">
+    <a class="skip-link" href="#admin-main">Skip to content</a>
+    <div class="portal-auth-loading" id="admin-auth-loading" role="status">Verifying administrator session…</div>
+    <header class="admin-header">
+      <a class="admin-brand" href="admin/login/" aria-label="Admin demo access"><span class="brand-mark" aria-hidden="true">DDU</span><span class="brand-copy"><strong>DDUGU</strong><small>Admin console · demo</small></span></a>
+      <div class="admin-header-actions"><span class="admin-demo-flag" id="admin-mode-flag"><i></i>TEST DATA ONLY</span><span class="admin-actor"><span id="admin-actor-name">Demo Administrator</span><small id="admin-actor-mode">LOCAL PREVIEW</small></span><a class="admin-signout" href="admin/login/" data-admin-logout>Exit demo</a><button class="admin-menu-toggle" type="button" aria-label="Open admin navigation" aria-expanded="false" aria-controls="admin-sidebar"><span></span><span></span></button></div>
+    </header>
+    <div class="admin-shell">
+      <aside class="admin-sidebar" id="admin-sidebar" aria-label="Admin navigation">
+        <p class="admin-nav-label">OPERATIONS</p>
+        <nav class="admin-nav" aria-label="Admin portal">
+          <button type="button" class="admin-nav-item is-active" data-view="overview" aria-current="page"><span aria-hidden="true">⌂</span>Overview</button>
+          <button type="button" class="admin-nav-item" data-view="campus"><span aria-hidden="true">⌖</span>Campus management</button>
+          <button type="button" class="admin-nav-item" data-view="students"><span aria-hidden="true">◉</span>Students</button>
+          <button type="button" class="admin-nav-item" data-view="faculty"><span aria-hidden="true">○</span>Faculty</button>
+          <button type="button" class="admin-nav-item" data-view="bookings"><span aria-hidden="true">▤</span>Bookings</button>
+          <button type="button" class="admin-nav-item" data-view="schedules"><span aria-hidden="true">▦</span>Schedules</button>
+          <button type="button" class="admin-nav-item" data-view="announcements"><span aria-hidden="true">◉</span>Announcements</button>
+          <button type="button" class="admin-nav-item" data-view="issues"><span aria-hidden="true">↗</span>Issue tracking<i id="issue-nav-count">2</i></button>
+          <button type="button" class="admin-nav-item" data-view="analytics"><span aria-hidden="true">▥</span>Analytics</button>
+          <button type="button" class="admin-nav-item" data-view="audit"><span aria-hidden="true">↻</span>Audit logs</button>
+          <button type="button" class="admin-nav-item" data-view="settings"><span aria-hidden="true">⚙</span>Settings</button>
+        </nav>
+        <div class="admin-sidebar-bottom"><span class="admin-demo-badge">DEMO WORKSPACE</span><p>No live institutional data connected.</p></div>
+      </aside>
+
+      <main class="admin-main" id="admin-main">
+        <div class="admin-context"><div><p class="eyebrow">DDUGU · ADMINISTRATION</p><p>Institute of Engineering and Technology + Deeksha Bhawan</p></div><span class="admin-test-stamp" id="admin-environment-stamp">DEMO ENVIRONMENT</span></div>
+        <div class="admin-demo-alert" id="admin-demo-alert" role="status"><strong>Demo only.</strong> All rows and actions use fictional data stored in this page session. This console does not authenticate users or make official changes.</div>
+
+        <section class="admin-view" id="admin-view-overview" data-title="Overview" aria-labelledby="admin-overview-title">
+          <div class="admin-title-row"><div><p class="eyebrow">THURSDAY · 5 NOVEMBER 2026</p><h1 id="admin-overview-title">Campus operations.</h1></div><button class="admin-primary-button" type="button" data-open-view="bookings">Review bookings <span aria-hidden="true">↗</span></button></div>
+          <div class="admin-stats" id="admin-statistics" role="group" aria-label="Campus demo statistics"></div>
+          <div class="admin-overview-grid"><section class="admin-panel" aria-labelledby="conflict-overview-title"><div class="admin-panel-heading"><div><p class="eyebrow">SCHEDULING HEALTH</p><h2 id="conflict-overview-title">Needs attention</h2></div><button class="admin-text-button" type="button" data-open-view="schedules">Review conflicts <span aria-hidden="true">↗</span></button></div><div id="overview-conflicts" class="overview-conflict-list"></div></section><section class="admin-panel recent-activity-panel" aria-labelledby="recent-activity-title"><div class="admin-panel-heading"><div><p class="eyebrow">ACCOUNTABILITY</p><h2 id="recent-activity-title">Recent activity</h2></div><button class="admin-text-button" type="button" data-open-view="audit">Full audit <span aria-hidden="true">↗</span></button></div><div id="overview-activity" class="overview-activity-list"></div></section></div>
+          <section class="admin-panel overview-bookings-panel" aria-labelledby="overview-bookings-title"><div class="admin-panel-heading"><div><p class="eyebrow">CAMPUS-WIDE · DEMO RECORDS</p><h2 id="overview-bookings-title">Latest bookings</h2></div><button class="admin-text-button" type="button" data-open-view="bookings">All bookings <span aria-hidden="true">↗</span></button></div><div id="overview-bookings" class="admin-table-wrap"></div></section>
+        </section>
+
+        <section class="admin-view" id="admin-view-campus" data-title="Campus management" aria-labelledby="campus-title" hidden>
+          <div class="admin-title-row">
+            <div><p class="eyebrow">BUILDINGS · FLOORS · ROOMS · POLICIES</p><h1 id="campus-title">Campus management.</h1></div>
+            <div class="admin-title-actions">
+              <button class="admin-secondary-button" type="button" id="export-rooms-button">Export Rooms CSV <span aria-hidden="true">↓</span></button>
+              <button class="admin-primary-button" type="button" id="add-room-button">Add room <span aria-hidden="true">＋</span></button>
+            </div>
+          </div>
+          <div class="campus-building-tabs" id="campus-building-tabs" role="group" aria-label="Select campus building"></div>
+          <div class="campus-summary-strip" id="campus-summary"></div>
+          <div class="blueprint-upload-panel"><div><p class="eyebrow">FLOOR PLAN SOURCE</p><h2 id="blueprint-building-title">IET</h2><p>Upload an approved floor-plan file for this building. The demo previews file metadata only and does not upload it.</p></div><label class="upload-button">Choose blueprint<input id="blueprint-file" type="file" accept="image/png,image/jpeg,image/webp,application/pdf"></label><span id="blueprint-file-status" role="status" aria-live="polite">No approved blueprint asset connected.</span></div>
+          <div class="admin-floor-tabs" id="admin-floor-tabs" role="group" aria-label="Filter rooms by floor"></div>
+          <div class="admin-table-wrap" id="campus-room-table"></div>
+          <p class="admin-footnote">Capacities and permitted uses not supplied by the problem statement are labeled as demo configuration. LH13–LH14 and IET23 appear on the drawing but not in the written room list; verify before use.</p>
+        </section>
+
+        <section class="admin-view" id="admin-view-students" data-title="Students" aria-labelledby="students-title" hidden>
+          <div class="admin-title-row">
+            <div><p class="eyebrow">DATA IMPORT · ACADEMIC MAPPING</p><h1 id="students-title">Student records.</h1></div>
+            <div class="admin-title-actions">
+              <button class="admin-secondary-button" type="button" id="export-students-button">Export Students CSV <span aria-hidden="true">↓</span></button>
+              <span class="admin-test-stamp" id="student-stamp">FICTIONAL SAMPLE ROWS</span>
+            </div>
+          </div>
+          <div class="import-layout">
+            <section class="admin-panel import-panel">
+              <p class="eyebrow">IMPORT PREVIEW</p>
+              <h2>Map your student dataset</h2>
+              <p>Choose a CSV to inspect its headers and first rows. In live mode, click Import to commit to the database.</p>
+              <div class="import-actions">
+                <label class="upload-button">Choose CSV<input id="student-csv-file" type="file" accept=".csv,text/csv"></label>
+                <button class="admin-primary-button" type="button" id="import-students-database-btn" disabled>Import to Database <span aria-hidden="true">↑</span></button>
+              </div>
+              <p id="student-import-status" class="admin-inline-status" role="status" aria-live="polite">No file selected. Showing fictional preview rows.</p>
+              <div id="student-column-mapping" class="column-mapping"></div>
+            </section>
+            <section class="import-summary"><span class="admin-demo-badge">DEMO DATA</span><strong>Branch · Year · Batch · Section</strong><p>Example mapping required before any production import.</p><div class="branch-mix" id="branch-mix"></div></section>
+          </div>
+          <div class="admin-table-wrap" id="student-table"></div>
+          <p class="admin-footnote">No real student names, IDs, or contact details are included. A production import needs server validation, access controls, retention rules, and an audit record.</p>
+        </section>
+
+        <section class="admin-view" id="admin-view-faculty" data-title="Faculty" aria-labelledby="faculty-title" hidden>
+          <div class="admin-title-row"><div><p class="eyebrow">ACCOUNTS · PERMISSIONS</p><h1 id="faculty-title">Faculty access.</h1></div><span class="admin-test-stamp">DEMO DIRECTORY</span></div>
+          <div class="faculty-permission-note">Permission switches below are visual demo state only. The server must determine identity and enforce every role and ownership check.</div>
+          <div class="admin-table-wrap" id="faculty-table"></div>
+        </section>
+
+        <section class="admin-view" id="admin-view-bookings" data-title="Bookings" aria-labelledby="bookings-title" hidden>
+          <div class="admin-title-row">
+            <div><p class="eyebrow">ALL CAMPUS RESERVATIONS</p><h1 id="bookings-title">Booking management.</h1></div>
+            <div class="admin-title-actions">
+              <button class="admin-secondary-button" type="button" id="export-bookings-button">Export Bookings CSV <span aria-hidden="true">↓</span></button>
+              <span class="admin-test-stamp">TEST BOOKINGS MARKED</span>
+            </div>
+          </div>
+          <div class="admin-filter-bar"><label>Status<select id="booking-status-filter"><option value="all">All statuses</option><option value="pending">Pending approval</option><option value="confirmed">Confirmed</option><option value="cancelled">Cancelled</option><option value="rejected">Rejected</option></select></label><label>Building<select id="booking-building-filter"><option value="all">All buildings</option><option value="IET">IET</option><option value="Deeksha Bhawan">Deeksha Bhawan</option></select></label><label>Purpose<select id="booking-purpose-filter"><option value="all">All purposes</option><option value="lecture">Extra lecture</option><option value="examination">Examination</option><option value="practical">Practical session</option><option value="event">Event</option></select></label></div>
+          <p id="booking-action-status" class="admin-inline-status" role="status" aria-live="polite"></p>
+          <div id="all-bookings-table" class="admin-table-wrap"></div>
+          <p class="admin-footnote">Admin demo actions update only the local test ledger. In production, approval, cancellation, and rescheduling require authenticated admin permissions and durable audit records.</p>
+        </section>
+
+        <section class="admin-view" id="admin-view-schedules" data-title="Schedules" aria-labelledby="schedules-title" hidden>
+          <div class="admin-title-row">
+            <div><p class="eyebrow">STUDENT · FACULTY · ROOM CHECKS</p><h1 id="schedules-title">Schedule conflicts.</h1></div>
+            <div class="admin-title-actions">
+              <button class="admin-primary-button" type="button" id="add-schedule-button">Add Schedule Row <span aria-hidden="true">＋</span></button>
+              <span class="admin-test-stamp">RULE-BASED DEMO</span>
+            </div>
+          </div>
+          <p class="admin-intro">The demo checks overlapping time ranges for student groups, faculty members, and rooms using the supplied interval rule.</p>
+          <div class="conflict-summary" id="conflict-summary"></div><div id="schedule-conflict-list" class="schedule-conflict-list"></div>
+          <div class="admin-subheading admin-subheading-spaced"><h2>Master schedule entries</h2></div>
+          <div class="admin-table-wrap" id="master-schedule-table"></div>
+          <p class="admin-footnote">The sample conflicts are clearly labeled test data. A real check must cover the complete schedule database and commit changes transactionally.</p>
+        </section>
+
+        <section class="admin-view" id="admin-view-announcements" data-title="Announcements" aria-labelledby="announcements-title" hidden>
+          <div class="admin-title-row"><div><p class="eyebrow">OFFICIAL NOTICE REVIEW</p><h1 id="announcements-title">Announcements.</h1></div><span class="admin-test-stamp">NOT PUBLIC UNTIL REVIEWED</span></div>
+          <div class="announcement-workspace"><form id="announcement-form" class="admin-panel announcement-form"><p class="eyebrow">COMPOSE · DEMO ONLY</p><label>Title<input id="announcement-title" name="title" type="text" minlength="5" maxlength="120" required placeholder="Examination venue update"></label><label>Notice text<textarea id="announcement-body" name="body" rows="5" minlength="10" maxlength="1200" required placeholder="Write clear, specific instructions…"></textarea></label><div class="announcement-targets"><label>Audience<select id="announcement-audience" name="audience"><option value="public">Public notice</option><option value="CSE-2-A">CSE · Year 2 · Section A</option><option value="all-students">All students</option><option value="faculty">Faculty</option></select></label><label>Visibility<select id="announcement-visibility" name="visibility"><option value="draft">Draft</option><option value="scheduled">Review before publishing</option></select></label></div><div class="announcement-actions"><button class="admin-secondary-button" type="button" id="draft-announcement">Suggest wording</button><button class="admin-primary-button" type="submit">Save draft for review <span aria-hidden="true">↗</span></button></div><p id="announcement-form-status" class="admin-inline-status" role="status" aria-live="polite"></p></form><section class="admin-panel announcement-preview"><p class="eyebrow">PUBLISHING RULE</p><h2>Human review required</h2><p>AI assistance may suggest wording, but this demo never publishes automatically. Private or targeted notices stay outside the public landing page.</p><span class="review-stamp">ADMIN REVIEW</span></section></div>
+          <div class="admin-subheading"><h2>Notice queue</h2><span id="announcement-queue-count"></span></div><div id="announcement-queue" class="announcement-queue"></div>
+        </section>
+
+        <section class="admin-view" id="admin-view-issues" data-title="Issue tracking" aria-labelledby="issues-title" hidden>
+          <div class="admin-title-row"><div><p class="eyebrow">STUDENT &amp; FACULTY REPORTS</p><h1 id="issues-title">Issue tracking.</h1></div><span class="admin-test-stamp">FICTIONAL REPORTS</span></div>
+          <div class="issue-filter-tabs" role="group" aria-label="Filter issue reports"><button type="button" data-issue-filter="all" aria-pressed="true">All</button><button type="button" data-issue-filter="open" aria-pressed="false">Open</button><button type="button" data-issue-filter="investigating" aria-pressed="false">Investigating</button><button type="button" data-issue-filter="resolved" aria-pressed="false">Resolved</button></div>
+          <div id="issue-list" class="issue-list"></div>
+        </section>
+
+        <section class="admin-view" id="admin-view-analytics" data-title="Analytics" aria-labelledby="analytics-title" hidden>
+          <div class="admin-title-row"><div><p class="eyebrow">DEMO BOOKINGS · 2–6 NOVEMBER</p><h1 id="analytics-title">Space analytics.</h1></div><span class="admin-test-stamp">SIMULATED COUNTS</span></div>
+          <div class="analytics-summary" id="analytics-summary"></div><div class="analytics-grid"><section class="admin-panel"><p class="eyebrow">BOOKED HOURS BY ROOM</p><h2>Room utilisation</h2><div id="utilisation-chart" class="bar-chart"></div></section><section class="admin-panel"><p class="eyebrow">DEMO SCHEDULE</p><h2>Peak booking hours</h2><div id="peak-hours-chart" class="bar-chart"></div></section></div>
+          <p class="admin-footnote">These summaries are calculated from the small fictional fixture only. Do not treat them as real utilisation or operational evidence.</p>
+        </section>
+
+        <section class="admin-view" id="admin-view-audit" data-title="Audit logs" aria-labelledby="audit-title" hidden>
+          <div class="admin-title-row">
+            <div><p class="eyebrow">WHO · WHEN · WHAT</p><h1 id="audit-title">Audit history.</h1></div>
+            <div class="admin-title-actions">
+              <button class="admin-secondary-button" type="button" id="export-audit-button">Export Audit CSV <span aria-hidden="true">↓</span></button>
+              <span class="admin-test-stamp" id="audit-stamp">SESSION-ONLY DEMO LOG</span>
+            </div>
+          </div>
+          <div id="audit-table" class="admin-table-wrap"></div><p class="admin-footnote">Session audit records reset on refresh. Production logs must be durable, access-restricted, tamper-resistant, and retained under institutional policy.</p>
+        </section>
+
+        <section class="admin-view" id="admin-view-settings" data-title="Settings" aria-labelledby="settings-title" hidden>
+          <div class="admin-title-row"><div><p class="eyebrow">CONFIGURABLE BOOKING POLICIES</p><h1 id="settings-title">System settings.</h1></div><span class="admin-test-stamp">LOCAL SETTINGS</span></div>
+          <form id="settings-form" class="settings-form"><section class="admin-panel settings-section"><p class="eyebrow">BOOKING RULES</p><label class="setting-row"><span><strong>Require approval for examinations</strong><small>Admin review before confirmation</small></span><input type="checkbox" name="examApproval" checked></label><label class="setting-row"><span><strong>Require approval for public events</strong><small>Admin review before confirmation</small></span><input type="checkbox" name="eventApproval"></label><label class="setting-row"><span><strong>Advance booking limit</strong><small>Maximum days before booking date</small></span><input type="number" name="advanceDays" min="1" max="365" value="30"></label><label class="setting-row"><span><strong>Minimum cancellation notice</strong><small>Hours before a booking starts</small></span><input type="number" name="cancelHours" min="0" max="168" value="2"></label><button class="admin-primary-button" type="submit">Save demo policies</button><p id="settings-status" class="admin-inline-status" role="status" aria-live="polite"></p></section></form>
+          <section class="admin-panel settings-section settings-section-spaced">
+            <p class="eyebrow">AUTHORIZED PROVISIONING</p>
+            <h2>Provision campus account</h2>
+            <p>Authorized administrator provisioning for faculty, student, or additional admin accounts.</p>
+            <form id="provision-user-form" class="provision-user-form">
+              <div class="dialog-fields">
+                <label>Role
+                  <select name="role" id="provision-role-select" required>
+                    <option value="faculty">Faculty Member</option>
+                    <option value="student">Student</option>
+                    <option value="admin">Administrator</option>
+                  </select>
+                </label>
+                <label>Full Name
+                  <input name="display_name" type="text" minlength="2" maxlength="100" placeholder="e.g. Dr. A. Sharma" required>
+                </label>
+              </div>
+              <div class="dialog-fields">
+                <label>Institutional Email
+                  <input name="email" type="email" maxlength="254" placeholder="user@ddugu.ac.in" required>
+                </label>
+                <label>Password (min 8 chars)
+                  <input name="password" type="password" autocomplete="new-password" minlength="8" maxlength="256" placeholder="Account password" required>
+                </label>
+              </div>
+              <div id="provision-student-extra" class="dialog-fields" hidden>
+                <label>Roll Number
+                  <input name="roll_number" id="provision-roll-number" type="text" placeholder="e.g. CSE-2024-050">
+                </label>
+                <label>Branch Code
+                  <select name="branch_code" id="provision-branch-select">
+                    <option value="CSE">CSE</option>
+                    <option value="AIML">AIML</option>
+                    <option value="AIDS">AIDS</option>
+                    <option value="ECE">ECE</option>
+                    <option value="ME">ME</option>
+                    <option value="IT">IT</option>
+                  </select>
+                </label>
+              </div>
+              <p id="provision-user-status" class="admin-inline-status" role="status" aria-live="polite"></p>
+              <button class="admin-primary-button provision-submit-btn" type="submit">Provision Account <span aria-hidden="true">＋</span></button>
+            </form>
+          </section>
+          <section class="admin-panel tenant-phase"><span class="phase-label">PHASE 8 · NOT IN THIS PROTOTYPE</span><h2>Institution onboarding &amp; tenant tools</h2><p>Multi-tenant isolation, onboarding workflows, integrations, and billing require a server-side product architecture and are not simulated here.</p></section>
+          <p class="admin-footnote">Settings are client-side demo state only. Production policy changes need authorization, validation, audit logging, and persistence.</p>
+        </section>
+        <footer class="admin-footer"><span>Independent developer prototype · Not an official DDUGU service</span><a href="admin/login/">Exit admin demo</a></footer>
+      </main>
+    </div>
+
+    <dialog class="admin-dialog" id="room-dialog" aria-labelledby="room-dialog-title"><button class="admin-dialog-close" type="button" aria-label="Close room editor">×</button><p class="eyebrow">CAMPUS RECORD · DEMO</p><h2 id="room-dialog-title">Add room</h2><form id="room-form" class="admin-dialog-form"><input type="hidden" name="id"><label>Room name<input name="name" type="text" minlength="2" maxlength="60" required></label><div class="dialog-fields"><label>Building<select name="building" required><option>IET</option><option>Deeksha Bhawan</option></select></label><label>Floor<select name="floor" required><option>Ground</option><option>First</option><option>Second</option></select></label></div><label>Room type<select name="type"><option>Classroom</option><option>Laboratory</option><option>Seminar Hall</option><option>Library</option></select></label><label>Capacity<input name="capacity" type="number" min="1" max="2000" placeholder="Not configured"></label><label>Permitted uses<select name="purposes" multiple size="4"><option value="lecture">Extra lecture</option><option value="examination">Examination</option><option value="practical">Practical session</option><option value="event">Event</option></select></label><label class="setting-row"><span><strong>Room enabled</strong><small>Disabled rooms cannot be booked</small></span><input name="enabled" type="checkbox" checked></label><label class="setting-row"><span><strong>Verified against room register</strong><small>Only verified spaces may be booked</small></span><input name="verified" type="checkbox"></label><p id="room-form-status" class="admin-inline-status" role="status" aria-live="polite"></p><button class="admin-primary-button" type="submit">Save room</button></form></dialog>
+    <dialog class="admin-dialog" id="booking-change-dialog" aria-labelledby="booking-change-title"><button class="booking-change-close admin-dialog-close" type="button" aria-label="Close booking reschedule form">×</button><p class="eyebrow">CAMPUS BOOKING · DEMO</p><h2 id="booking-change-title">Reschedule booking</h2><p id="booking-change-record" class="booking-change-record"></p><form id="booking-change-form" class="admin-dialog-form"><input type="hidden" name="id"><label>Date<input name="date" type="date" required></label><div class="dialog-fields"><label>Start time<input name="start" type="time" required></label><label>End time<input name="end" type="time" required></label></div><p id="booking-change-status" class="admin-inline-status" role="status" aria-live="polite"></p><button class="admin-primary-button" type="submit">Recheck &amp; save changes</button></form></dialog>
+
+    <dialog class="admin-dialog" id="schedule-dialog" aria-labelledby="schedule-dialog-title">
+      <button class="schedule-dialog-close admin-dialog-close" type="button" aria-label="Close schedule form">×</button>
+      <p class="eyebrow">MASTER SCHEDULE</p>
+      <h2 id="schedule-dialog-title">Add schedule row</h2>
+      <form id="schedule-form" class="admin-dialog-form">
+        <div class="dialog-fields">
+          <label>Course Code
+            <input name="course_code" type="text" minlength="2" maxlength="50" placeholder="e.g. CS201" required>
+          </label>
+          <label>Course Name
+            <input name="course_name" type="text" minlength="2" maxlength="150" placeholder="e.g. Data Structures" required>
+          </label>
+        </div>
+        <div class="dialog-fields">
+          <label>Branch
+            <select name="branch_code" id="schedule-branch-select" required>
+              <option value="CSE">CSE</option>
+              <option value="AIML">AIML</option>
+              <option value="AIDS">AIDS</option>
+              <option value="ECE">ECE</option>
+              <option value="ME">ME</option>
+              <option value="IT">IT</option>
+            </select>
+          </label>
+          <label>Year
+            <select name="academic_year" required>
+              <option value="1">Year 1</option>
+              <option value="2" selected>Year 2</option>
+              <option value="3">Year 3</option>
+              <option value="4">Year 4</option>
+            </select>
+          </label>
+          <label>Section
+            <input name="section" type="text" maxlength="5" placeholder="e.g. A">
+          </label>
+        </div>
+        <div class="dialog-fields">
+          <label>Day of Week
+            <select name="day_of_week" required>
+              <option value="1">Monday</option>
+              <option value="2">Tuesday</option>
+              <option value="3">Wednesday</option>
+              <option value="4">Thursday</option>
+              <option value="5">Friday</option>
+              <option value="6">Saturday</option>
+              <option value="7">Sunday</option>
+            </select>
+          </label>
+          <label>Start Time
+            <input name="start_time" type="time" required value="09:00">
+          </label>
+          <label>End Time
+            <input name="end_time" type="time" required value="10:00">
+          </label>
+        </div>
+        <div class="dialog-fields">
+          <label>Room
+            <select name="room_id" id="schedule-room-select" required></select>
+          </label>
+          <label>Faculty
+            <select name="faculty_id" id="schedule-faculty-select" required></select>
+          </label>
+        </div>
+        <p id="schedule-form-status" class="admin-inline-status" role="status" aria-live="polite"></p>
+        <button class="admin-primary-button" type="submit">Save schedule entry</button>
+      </form>
+    </dialog>
+  </body>
+</html>

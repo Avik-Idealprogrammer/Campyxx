@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#102f28">
+    <title>Admin Demo Access | DDUGU Smart Campus</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin-login.css">
+    <script src="../../api-client.js" defer></script>
+    <script src="admin-login.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#access-main">Skip to content</a>
+    <main class="access-shell" id="access-main">
+      <a class="access-brand" href="../../index.html" aria-label="DDUGU Smart Campus public site"><span class="brand-mark" aria-hidden="true">DDU</span><span><strong>DDUGU</strong><small>Smart Campus</small></span></a>
+      <section class="access-panel" aria-labelledby="access-title">
+        <p class="eyebrow">SEPARATE ADMIN ROUTE</p>
+        <h1 id="access-title">Admin workspace</h1>
+        <p class="access-intro">Sign in with an administrator account. The server verifies your role and permissions.</p>
+        <div class="security-warning" role="note"><strong>Prototype data only.</strong> This local stack is for synthetic demo records. Do not enter real institutional credentials.</div>
+        <form id="admin-login-form" class="admin-login-form">
+          <label>Email<input name="email" type="email" autocomplete="username" maxlength="254" required></label>
+          <label>Password<input name="password" type="password" autocomplete="current-password" maxlength="256" required></label>
+          <p id="admin-login-status" class="admin-login-status" role="alert" aria-live="assertive"></p>
+          <button class="access-button" type="submit" id="admin-login-submit">Sign in as administrator <span aria-hidden="true">↗</span></button>
+        </form>
+        <a class="demo-access-link" href="../../admin-portal.html?demo=1">Enter fictional admin demo</a>
+        <a class="back-link" href="../../index.html">← Return to public site</a>
+      </section>
+      <footer class="access-footer"><span>Independent developer prototype</span><span>DEMO / 2026</span></footer>
+    </main>
+  </body>
+</html>

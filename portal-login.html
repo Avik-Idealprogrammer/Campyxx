@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#102f28">
+    <title>Portal Access | DDUGU Smart Campus</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="portal-login.css">
+    <script src="api-client.js" defer></script>
+    <script src="portal-login.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#login-main">Skip to content</a>
+    <main class="login-shell" id="login-main">
+      <a class="login-brand" href="index.html" aria-label="DDUGU Smart Campus public site">
+        <span class="brand-mark" aria-hidden="true">DDU</span>
+        <span><strong>DDUGU</strong><small>Smart Campus</small></span>
+      </a>
+
+      <section class="login-panel" aria-labelledby="login-title">
+        <div class="role-selector" role="tablist" aria-label="Campus Portal Role">
+          <button type="button" class="role-tab is-active" id="role-tab-student" role="tab" aria-selected="true" data-role="student">Student Portal</button>
+          <button type="button" class="role-tab" id="role-tab-faculty" role="tab" aria-selected="false" data-role="faculty">Faculty Portal</button>
+        </div>
+
+        <div class="auth-tabs" role="tablist" aria-label="Authentication mode">
+          <button type="button" class="auth-tab is-active" id="tab-login" role="tab" aria-selected="true" data-mode="login">Sign In</button>
+          <button type="button" class="auth-tab" id="tab-register" role="tab" aria-selected="false" data-mode="register">Create Account</button>
+        </div>
+
+        <p class="eyebrow" id="login-role-label">STUDENT PORTAL</p>
+        <h1 id="login-title">Sign in</h1>
+        <p class="login-intro" id="login-intro">Use your institutional account. Your role and permissions are validated by the server.</p>
+
+        <!-- Sign In Form -->
+        <form id="portal-login-form" class="portal-login-form" novalidate>
+          <label>Institutional Email
+            <input name="email" type="email" autocomplete="username" maxlength="254" placeholder="user@ddugu.ac.in" required>
+          </label>
+          <label>Password
+            <input name="password" type="password" autocomplete="current-password" maxlength="256" placeholder="Enter your password" required>
+          </label>
+          <p id="login-status" class="login-status" role="alert" aria-live="assertive"></p>
+          <button type="submit" id="login-submit">
+            <span class="btn-text">Sign in securely</span>
+            <span aria-hidden="true">↗</span>
+          </button>
+        </form>
+
+        <!-- Registration Form -->
+        <form id="portal-register-form" class="portal-login-form" hidden novalidate>
+          <label>Full Name
+            <input name="display_name" type="text" autocomplete="name" minlength="2" maxlength="100" placeholder="e.g. Priya Sharma" required>
+          </label>
+          <label>Institutional Email
+            <input name="email" type="email" autocomplete="email" maxlength="254" placeholder="e.g. priya.cse24@ddugu.ac.in" required>
+          </label>
+
+          <!-- Student-specific fields -->
+          <div id="student-reg-fields" class="role-fields">
+            <label>Roll Number
+              <input name="roll_number" type="text" maxlength="50" placeholder="e.g. CSE-2024-001" required>
+            </label>
+            <label>Branch / Programme
+              <select name="branch_code" id="student-branch-select" required>
+                <option value="CSE">Computer Science and Engineering (CSE)</option>
+                <option value="AIML">Artificial Intelligence and Machine Learning (AIML)</option>
+                <option value="AIDS">Artificial Intelligence and Data Science (AIDS)</option>
+                <option value="ECE">Electronics and Communication Engineering (ECE)</option>
+                <option value="ME">Mechanical Engineering (ME)</option>
+                <option value="IT">Information Technology (IT)</option>
+              </select>
+            </label>
+            <div class="form-row-grid">
+              <label>Academic Year
+                <select name="academic_year" required>
+                  <option value="1">Year 1</option>
+                  <option value="2" selected>Year 2</option>
+                  <option value="3">Year 3</option>
+                  <option value="4">Year 4</option>
+                </select>
+              </label>
+              <label>Batch Year
+                <input name="batch_year" type="number" min="2020" max="2035" value="2024" required>
+              </label>
+              <label>Section
+                <select name="section">
+                  <option value="A" selected>Section A</option>
+                  <option value="B">Section B</option>
+                  <option value="">None / Open</option>
+                </select>
+              </label>
+            </div>
+          </div>
+
+          <!-- Faculty-specific fields -->
+          <div id="faculty-reg-fields" class="role-fields" hidden>
+            <label>Department
+              <select name="department_code" id="faculty-dept-select">
+                <option value="CSE">Computer Science and Engineering (CSE)</option>
+                <option value="AIML">Artificial Intelligence and Machine Learning (AIML)</option>
+                <option value="AIDS">Artificial Intelligence and Data Science (AIDS)</option>
+                <option value="ECE">Electronics and Communication Engineering (ECE)</option>
+                <option value="ME">Mechanical Engineering (ME)</option>
+                <option value="IT">Information Technology (IT)</option>
+              </select>
+            </label>
+          </div>
+
+          <label>Password (min 8 characters)
+            <input name="password" type="password" autocomplete="new-password" minlength="8" maxlength="256" placeholder="At least 8 characters" required>
+          </label>
+          <label>Confirm Password
+            <input name="confirm_password" type="password" autocomplete="new-password" minlength="8" maxlength="256" placeholder="Repeat your password" required>
+          </label>
+
+          <p id="register-status" class="login-status" role="alert" aria-live="assertive"></p>
+          <button type="submit" id="register-submit">
+            <span class="btn-text">Create Account</span>
+            <span aria-hidden="true">↗</span>
+          </button>
+        </form>
+
+        <div class="portal-extra-links">
+          <a id="open-portal-demo" class="demo-login-link" href="student-portal.html?demo=1">Open the fictional demo instead</a>
+          <a class="admin-login-link" href="admin/login/">Administrator Workspace →</a>
+        </div>
+      </section>
+
+      <footer class="login-footer">
+        <span>Independent developer prototype · DDUGU Smart Campus</span>
+        <a href="index.html">Return to public site</a>
+      </footer>
+    </main>
+  </body>
+</html>

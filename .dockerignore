@@ -1,0 +1,9 @@
+.git
+.github
+node_modules
+backups
+*.log
+.env
+__pycache__
+*.py[cod]
+.venv

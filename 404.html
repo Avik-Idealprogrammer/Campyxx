@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#102f28">
+    <title>404 — Page Not Found | DDUGU Smart Campus</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        color-scheme: light;
+        --paper: #f3f4ef;
+        --ink: #172620;
+        --green: #164b3d;
+        --green-dark: #10382b;
+        --lime: #d7ed71;
+        --muted: #748178;
+        --border: #d1d9d0;
+        font-family: "DM Sans", "Avenir Next", sans-serif;
+        font-synthesis: none;
+        -webkit-font-smoothing: antialiased;
+      }
+      * { box-sizing: border-box; }
+      body {
+        min-height: 100vh;
+        margin: 0;
+        background: radial-gradient(ellipse at 18% 16%, rgba(215,237,113,.12), transparent 42%), linear-gradient(135deg, #102f28, #1d4939 60%, #234a3b);
+        color: var(--ink);
+        display: flex;
+        flex-direction: column;
+      }
+      a { color: inherit; text-decoration: none; }
+      .skip-link {
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        padding: 10px;
+        background: var(--lime);
+        color: #102f28;
+        font-weight: 700;
+        transform: translateY(-150%);
+        z-index: 1000;
+      }
+      .skip-link:focus { transform: translateY(0); }
+
+      .error-shell {
+        width: min(950px, calc(100% - 40px));
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin-inline: auto;
+        padding-block: 28px 20px;
+      }
+
+      .error-brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 11px;
+        width: fit-content;
+        color: white;
+      }
+      .brand-mark {
+        width: 42px;
+        height: 42px;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        background: var(--lime);
+        color: #102f28;
+        font: 800 12px "Manrope", sans-serif;
+      }
+      .error-brand strong, .error-brand small { display: block; }
+      .error-brand strong { font: 800 14px "Manrope", sans-serif; }
+      .error-brand small { margin-top: 2px; color: #c3d2c5; font-size: 9px; }
+
+      .error-panel {
+        width: min(540px, 100%);
+        margin: auto;
+        padding: 44px 40px;
+        background: var(--paper);
+        box-shadow: 0 24px 80px rgba(0,0,0,.22);
+        border-radius: 3px;
+        text-align: center;
+        animation: fadeIn 0.4s ease-out;
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(12px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      .eyebrow {
+        margin: 0 0 14px;
+        color: #688071;
+        font-size: 9px;
+        font-weight: 800;
+        letter-spacing: .15em;
+        text-transform: uppercase;
+      }
+
+      .error-number {
+        font: 800 88px/1 "Manrope", sans-serif;
+        color: var(--green);
+        letter-spacing: -0.04em;
+        margin: 0 0 8px;
+        position: relative;
+        display: inline-block;
+      }
+      .error-number::after {
+        content: "";
+        position: absolute;
+        bottom: 8px;
+        left: -8px;
+        right: -8px;
+        height: 12px;
+        background: rgba(215, 237, 113, 0.45);
+        z-index: -1;
+        border-radius: 2px;
+      }
+
+      h1 {
+        margin: 0 0 12px;
+        font: 700 24px/1.3 "Manrope", sans-serif;
+        letter-spacing: -0.02em;
+        color: var(--ink);
+      }
+
+      .error-desc {
+        margin: 0 auto 28px;
+        max-width: 420px;
+        color: #55665b;
+        font-size: 11px;
+        line-height: 1.7;
+      }
+
+      .error-actions {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-bottom: 30px;
+      }
+
+      .btn-primary, .btn-secondary {
+        min-height: 42px;
+        padding: 0 20px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        font: 700 10px "DM Sans", sans-serif;
+        cursor: pointer;
+        transition: all 0.16s ease;
+        border: 0;
+      }
+
+      .btn-primary {
+        background: var(--green);
+        color: white;
+      }
+      .btn-primary:hover {
+        background: var(--green-dark);
+        transform: translateY(-1px);
+      }
+
+      .btn-secondary {
+        background: transparent;
+        color: #3e6048;
+        border: 1px solid var(--border);
+      }
+      .btn-secondary:hover {
+        background: #e9eee6;
+        border-color: #b0c0b0;
+      }
+
+      .error-directory {
+        border-top: 1px solid #e1e7de;
+        padding-top: 22px;
+        text-align: left;
+      }
+      .directory-title {
+        margin: 0 0 12px;
+        color: #718476;
+        font-size: 8px;
+        font-weight: 700;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+      }
+      .directory-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .directory-chip {
+        padding: 6px 12px;
+        background: #e7ece4;
+        color: #2b5542;
+        font: 600 9px "DM Sans", sans-serif;
+        border-radius: 2px;
+        transition: all 0.15s ease;
+      }
+      .directory-chip:hover {
+        background: var(--lime);
+        color: #102f28;
+      }
+
+      .error-footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        color: #c5d3c7;
+        font-size: 8px;
+      }
+      .error-footer a { color: var(--lime); font-weight: 700; }
+      :focus-visible { outline: 3px solid #e8755d; outline-offset: 3px; }
+
+      @media (max-width: 520px) {
+        .error-panel { padding: 32px 20px; }
+        .error-number { font-size: 68px; }
+        h1 { font-size: 20px; }
+        .error-actions { flex-direction: column; }
+        .btn-primary, .btn-secondary { width: 100%; }
+        .error-footer { align-items: start; flex-direction: column; }
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip-link" href="#error-main">Skip to content</a>
+    <main class="error-shell" id="error-main">
+      <a class="error-brand" href="index.html" aria-label="DDUGU Smart Campus public site">
+        <span class="brand-mark" aria-hidden="true">DDU</span>
+        <span><strong>DDUGU</strong><small>Smart Campus</small></span>
+      </a>
+
+      <section class="error-panel" aria-labelledby="error-heading">
+        <p class="eyebrow">HTTP 404 · NOT FOUND</p>
+        <div class="error-number" aria-hidden="true">404</div>
+        <h1 id="error-heading">The page you're looking for doesn't exist.</h1>
+        <p class="error-desc">
+          The link may be outdated, the space moved, or the address entered incorrectly.
+          Use the options below to safely navigate back to campus tools and information.
+        </p>
+
+        <div class="error-actions">
+          <button type="button" class="btn-secondary" id="back-button">
+            <span aria-hidden="true">←</span> Back to Previous Page
+          </button>
+          <a class="btn-primary" href="index.html">
+            Go to Homepage <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+
+        <div class="error-directory">
+          <p class="directory-title">Or jump directly to a portal</p>
+          <div class="directory-links">
+            <a class="directory-chip" href="student-portal.html">Student Portal</a>
+            <a class="directory-chip" href="faculty-portal.html">Faculty Portal</a>
+            <a class="directory-chip" href="portal-login.html">Sign In / Register</a>
+            <a class="directory-chip" href="admin/login/">Admin Workspace</a>
+          </div>
+        </div>
+      </section>
+
+      <footer class="error-footer">
+        <span>Independent developer prototype · DDUGU Smart Campus</span>
+        <a href="index.html">Return to public site</a>
+      </footer>
+    </main>
+
+    <script>
+      document.querySelector("#back-button").addEventListener("click", () => {
+        if (window.history.length > 1 && document.referrer) {
+          window.history.back();
+        } else {
+          window.location.href = "index.html";
+        }
+      });
+    </script>
+  </body>
+</html>

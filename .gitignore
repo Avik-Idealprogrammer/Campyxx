@@ -1,0 +1,10 @@
+node_modules/
+__pycache__/
+*.py[cod]
+.venv/
+coverage/
+backups/
+.env
+.env.*
+!.env.example
+npm-debug.log*

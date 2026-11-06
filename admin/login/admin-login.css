@@ -1,0 +1,32 @@
+:root { color-scheme: light; --paper: #f3f4ef; --ink: #172620; --green: #164b3d; --lime: #d7ed71; --muted: #748178; font-family: "DM Sans", "Avenir Next", sans-serif; font-synthesis: none; -webkit-font-smoothing: antialiased; }
+* { box-sizing: border-box; }
+body { min-height: 100vh; margin: 0; background: radial-gradient(ellipse at 15% 15%, rgba(215,237,113,.12), transparent 42%), linear-gradient(135deg, #102f28, #1d4939 60%, #234a3b); color: var(--ink); }
+a { color: inherit; text-decoration: none; }
+.skip-link { position: fixed; top: 10px; left: 10px; padding: 10px; background: var(--lime); transform: translateY(-150%); }
+.skip-link:focus { transform: translateY(0); }
+.access-shell { width: min(950px, calc(100% - 40px)); min-height: 100vh; display: flex; flex-direction: column; justify-content: space-between; margin-inline: auto; padding-block: 34px 20px; }
+.access-brand { display: inline-flex; align-items: center; gap: 11px; width: fit-content; color: white; }
+.brand-mark { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 50%; background: var(--lime); color: #102f28; font: 800 12px "Manrope", sans-serif; }
+.access-brand strong, .access-brand small { display: block; }
+.access-brand strong { font: 800 14px "Manrope", sans-serif; }
+.access-brand small { margin-top: 2px; color: #c3d2c5; font-size: 9px; }
+.access-panel { width: min(470px, 100%); margin: auto; padding: clamp(26px, 6vw, 48px); background: var(--paper); box-shadow: 0 24px 80px rgba(0,0,0,.18); }
+.eyebrow { margin: 0 0 13px; color: #688071; font-size: 8px; font-weight: 700; letter-spacing: .13em; }
+h1 { margin: 0 0 14px; font: 700 clamp(28px, 5vw, 38px)/1.2 "Manrope", sans-serif; letter-spacing: 0; }
+.access-intro { margin: 0 0 21px; color: #68776d; font-size: 11px; line-height: 1.7; }
+.security-warning { margin-bottom: 20px; padding: 12px; border-left: 2px solid #d6a64d; background: #fbf2e4; color: #755936; font-size: 9px; line-height: 1.65; }
+.security-warning strong { color: #614725; }
+.admin-login-form { display: grid; gap: 12px; }
+.admin-login-form label { display: grid; gap: 6px; color: #46564b; font-size: 9px; font-weight: 700; }
+.admin-login-form input { width: 100%; min-height: 41px; padding: 9px 10px; border: 1px solid #d1d9d0; border-radius: 0; background: #fff; color: #172620; font: 400 10px "DM Sans", sans-serif; }
+.admin-login-form input:focus { border-color: #3a7755; }
+.admin-login-form button:disabled { opacity: .6; cursor: wait; }
+.admin-login-status { min-height: 14px; margin: 0; color: #9a543e; font-size: 8px; line-height: 1.5; }
+.access-button { width: 100%; min-height: 44px; display: flex; align-items: center; justify-content: space-between; padding: 0 14px; border: 0; background: var(--green); color: white; font: 700 10px "DM Sans", sans-serif; cursor: pointer; }
+.access-button:hover { background: #10382b; }
+.back-link { display: inline-block; margin-top: 17px; color: #52665a; font-size: 9px; font-weight: 600; }
+.back-link:hover { color: #1d6b4d; }
+.demo-access-link { display: inline-block; margin-top: 15px; color: #586e5e; font-size: 9px; font-weight: 700; }
+.demo-access-link:hover { color: #1d6b4d; text-decoration: underline; }
+.access-footer { display: flex; justify-content: space-between; gap: 12px; color: #c5d3c7; font-size: 8px; }
+:focus-visible { outline: 3px solid #e8755d; outline-offset: 3px; }
